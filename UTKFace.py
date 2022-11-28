@@ -5,7 +5,6 @@ from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.preprocessing import image
 
 import numpy as np
-import cv2# 修正
 
 image_size=198 #修正
 
@@ -38,12 +37,12 @@ def upload_file():
             #受け取った画像を読み込み、np形式に変換
             img = image.load_img(filepath, target_size=(image_size,image_size))
             img = image.img_to_array(img)
-            data = np.array([img])
+            img = np.array([img])
             
-            img = cv2.imread(filepath)
-            b,g,r = cv2.split(img)
-            img = cv2.merge([r,g,b])
-            img = cv2.resize(img, (IM_HEIGHT,IM_WIDTH))
+            # img = cv2.imread(filepath)
+            # b,g,r = cv2.split(img)
+            # img = cv2.merge([r,g,b])
+            # img = cv2.resize(img, (IM_HEIGHT,IM_WIDTH))
             
             #変換したデータをモデルに渡して予測する
             result = model.predict(img)[0]
