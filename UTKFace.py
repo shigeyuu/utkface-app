@@ -5,9 +5,9 @@ from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.preprocessing import image
 
 import numpy as np
+import cv2# 修正
 
-
-IM_HEIGHT=198
+image_size=198 #修正
 
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
