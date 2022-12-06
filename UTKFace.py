@@ -6,6 +6,16 @@ from tensorflow.keras.preprocessing import image
 
 import numpy as np
 
+import subprocess 
+
+# モデルをダウンロードするコマンドを実行する
+command = '''
+curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1KVLaGYGquzx-gEcCZLiDSf5ui8D4WEVO" > /dev/null
+CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)" 
+curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1KVLaGYGquzx-gEcCZLiDSf5ui8D4WEVO" -o model.h5
+'''    
+subprocess.run(command, shell=True)
+
 image_size=198 #修正
 
 UPLOAD_FOLDER = "uploads"
@@ -16,7 +26,7 @@ app = Flask(__name__)
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-model = load_model('./data/my_model2.h5')#学習済みモデルをロード
+model = load_model('./my_model.h5')#学習済みモデルをロード
 
 
 @app.route('/', methods=['GET', 'POST'])
